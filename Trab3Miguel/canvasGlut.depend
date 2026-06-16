@@ -1,0 +1,64 @@
+# depslib dependency file v1.0
+1781577728 source:d:\cc\2026-1\cg\demos\testes\trab3miguel\src\gl_canvas2d.cpp
+	"gl_canvas2d.h"
+	<GL/glut.h>
+
+1781575239 d:\cc\2026-1\cg\demos\testes\trab3miguel\src\gl_canvas2d.h
+	<stdio.h>
+	<stdlib.h>
+	<math.h>
+	<string.h>
+	<GL/glut.h>
+	<GL/freeglut_ext.h>
+	"Vector2.h"
+	"Vector3.h"
+
+1632060799 d:\cc\2026-1\cg\demos\testes\include\gl\glut.h
+	"freeglut_std.h"
+
+1632060797 d:\cc\2026-1\cg\demos\testes\include\gl\freeglut_std.h
+	<windows.h>
+	<EGL/egl.h>
+	<GLES/gl.h>
+	<GLES2/gl2.h>
+	<OpenGL/gl.h>
+	<OpenGL/glu.h>
+	<GL/gl.h>
+	<GL/glu.h>
+	<stdlib.h>
+
+1632060794 d:\cc\2026-1\cg\demos\testes\include\gl\freeglut_ext.h
+	<stdarg.h>
+
+1589217858 d:\cc\2026-1\cg\demos\testes\trab3miguel\src\vector2.h
+
+1781578488 d:\cc\2026-1\cg\demos\testes\trab3miguel\src\vector3.h
+	<stdio.h>
+	<math.h>
+
+1781578314 source:d:\cc\2026-1\cg\demos\testes\trab3miguel\src\terreno.cpp
+	"Terreno.h"
+	<stdlib.h>
+	<time.h>
+	<math.h>
+
+1781578270 d:\cc\2026-1\cg\demos\testes\trab3miguel\src\terreno.h
+	"Camera.h"
+	"gl_canvas2d.h"
+
+1781576494 d:\cc\2026-1\cg\demos\testes\trab3miguel\src\camera.h
+	<math.h>
+	"Vector3.h"
+	"Vector2.h"
+
+1781578227 source:d:\cc\2026-1\cg\demos\testes\trab3miguel\src\veiculo.cpp
+	"Veiculo.h"
+	<math.h>
+
+1781578039 d:\cc\2026-1\cg\demos\testes\trab3miguel\src\veiculo.h
+	"Vector3.h"
+	"Vector2.h"
+	"Camera.h"
+	"Terreno.h"
+	"gl_canvas2d.h"
+

@@ -41,7 +41,14 @@
 			<Add library="../lib/libopengl32.a" />
 			<Add library="../lib/libglu32.a" />
 		</Linker>
+		<Unit filename="src/Camera.h" />
+		<Unit filename="src/Carro.h" />
+		<Unit filename="src/Terreno.cpp" />
+		<Unit filename="src/Terreno.h" />
 		<Unit filename="src/Vector2.h" />
+		<Unit filename="src/Vector3.h" />
+		<Unit filename="src/Veiculo.cpp" />
+		<Unit filename="src/Veiculo.h" />
 		<Unit filename="src/gl_canvas2d.cpp" />
 		<Unit filename="src/gl_canvas2d.h" />
 		<Unit filename="src/main.cpp" />

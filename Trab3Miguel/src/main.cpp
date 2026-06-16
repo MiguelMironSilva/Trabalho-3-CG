@@ -2,16 +2,6 @@
 //  Trabalho 3 da disciplina de Computação Gráfica
 //  Autor: Miguel Miron Silva
 //         06/2026
-//
-//  Pode ser utilizada para fazer desenhos, animacoes, e jogos simples.
-//  Tem tratamento de mouse e teclado
-//  Estude o OpenGL antes de tentar compreender o arquivo gl_canvas.cpp
-//
-//  Versao 2.1
-//
-//  Instruções:
-//	  Para alterar a animacao, digite numeros entre 1 e 4
-//    Programa cheio de numeros magicos. Nao use isso nunca.
 // *********************************************************************/
 
 #include <GL/glut.h>
@@ -20,11 +10,20 @@
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 
 #include "gl_canvas2d.h"
+#include "Camera.h"
+#include "Terreno.h"
+#include "Veiculo.h"
 
 //largura e altura inicial da tela . Alteram com o redimensionamento de tela.
 int screenWidth = 500, screenHeight = 500;
+
+//instanciamento de classes
+Camera* camera = NULL;
+Terreno* terreno = NULL;
+Veiculo* carro = NULL;
 
 int opcao  = 49;//variavel global para selecao do que sera exibido na canvas.
 int mouseX, mouseY; //variaveis globais do mouse para poder exibir dentro da render().
@@ -45,25 +44,12 @@ void DrawMouseScreenCoords()
 //Deve-se manter essa função com poucas linhas de codigo.
 void render()
 {
-   //CV::text(20,500,"Programa Demo Canvas2D");
+   CV::color(1,0,0);
 
+   terreno->render(camera);
 
-   if( opcao == 49 ) //'1' -> relogio / xadrez
-   {
-
-   }
-   if( opcao == '2' ) //50 -> bola / senoide
-   {
-
-   }
-   if( opcao == 51 ) //'3' -> senoide / slider
-   {
-
-   }
-   if( opcao == 52) //'4' -> checkbox
-   {
-
-   }
+   carro->adaptarAoTerreno(terreno);
+   carro->render(camera);
 
    Sleep(10); //nao eh controle de FPS. Somente um limitador de FPS.
 }
@@ -71,34 +57,57 @@ void render()
 //funcao chamada toda vez que uma tecla for pressionada.
 void keyboard(int key)
 {
-   printf("\nTecla: %d" , key);
-   if( key < 200 )
-   {
-      opcao = key;
-   }
+    //teclas para controle manual da orientação espacial da câmera
+    switch (key)
+    {
+        case 27: //esc para sair do programa
+            delete camera;
+            exit(0);
+            break;
 
-   switch(key)
-   {
-      case 27:
-	     exit(0);
-	  break;
+        //rotação vertical e lateral
+        case 'w': case 'W':
+            camera->alterarAngulos(-2.0f, 0.0f);
+            break;
+        case 's': case 'S':
+            camera->alterarAngulos(2.0f, 0.0f);
+            break;
+        case 'a': case 'A':
+            camera->alterarAngulos(0.0f, -2.0f);
+            break;
+        case 'd': case 'D':
+            camera->alterarAngulos(0.0f, 2.0f);
+            break;
 
-	  //seta para a esquerda
-      case 200:
+        //ajuste do zoom
+        case '+':
+            camera->alterarDistancia(-1.0f);
+            break;
+        case '-':
+            camera->alterarDistancia(1.0f);
+            break;
 
-	  break;
+        //ajuste da planitude/ondulação do terreno
+        case '1': //mais plano
+            terreno->alterarOndulacao(-0.1f);
+            break;
+        case '2': //mais ondulado
+            terreno->alterarOndulacao(0.1f);
+            break;
 
-	  //seta para a direita
-	  case 202:
+        //controles do veiculo
+        case 200: carro->virarEsquerda(); break; //seta para a Esquerda
+        case 201: carro->moverFrente(); break;   //seta para Cima
+        case 202: carro->virarDireita(); break;  //seta para a Direita
+        case 203: carro->moverTras(); break;     //seta para Baixo
 
-	  break;
-   }
+    }
 }
 
 //funcao chamada toda vez que uma tecla for liberada
 void keyboardUp(int key)
 {
-   printf("\nLiberou: %d" , key);
+
 }
 
 //funcao para tratamento de mouse: cliques, movimentos e arrastos
@@ -109,16 +118,19 @@ void mouse(int button, int state, int wheel, int direction, int x, int y)
 
    //printf("\nmouse %d %d %d %d %d %d", button, state, wheel, direction,  x, y);
 
-   if( state == 0 ) //clicou
-   {
-
-   }
-
 }
 
 int main(void)
 {
 
-   CV::init(&screenWidth, &screenHeight, "Trabalho 3 Miguel: Canvas 2D - Pressione 1, 2, 3, 4");
+   camera = new Camera(&screenWidth, &screenHeight);
+   terreno = new Terreno();
+   carro = new Veiculo(0.0f, 0.0f);
+
+   CV::init(&screenWidth, &screenHeight, "Trabalho 3 Miguel");
+   printf("Utilize as teclas W, A, S e D para mudar de ângulo");
+   printf("Utilize as teclas + e - para modular a distancia");
+   printf("Utilize as teclas 1 e 2 para mudar a ondulação");
+   printf("Utilize as setas para move o carro");
    CV::run();
 }
